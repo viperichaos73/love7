@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To 杨文琪 · 来自骆邹阳</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Space+Grotesk:wght@400;600;700&family=Noto+Sans+SC:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="bg-grid"></div>
+  <div class="floating-orbs">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+    <span class="orb orb-4"></span>
+  </div>
+
+  <header class="hero">
+    <nav class="top-nav">
+      <div class="brand">
+        <span class="brand-mark">ZY ♥ WQ</span>
+        <span class="tag">Star</span>
+      </div>
+      <div class="since">相遇 · 2026 / 01 / 18</div>
+    </nav>
+    <div class="hero-shell">
+      <div class="hero-content">
+        <div class="eyebrow">星河浪漫实验 · 高级感限定</div>
+        <h1>杨文琪，把宇宙翻译成浪漫，就是遇见你的这一秒。</h1>
+        <p class="subtitle">
+          这是骆邹阳写给你的专属页面：高级、克制，又有恰到好处的心动。夜空、金线、和你——组成我此刻最想守护的星座。
+        </p>
+        <div class="actions">
+          <button id="cta-love" class="btn primary">开启告白</button>
+          <button id="cta-note" class="btn ghost">抽一张小纸条</button>
+        </div>
+        <p class="microcopy">· 我愿做你情绪的同频器，也做你计划里的可靠搭档。</p>
+      </div>
+      <div class="hero-card">
+        <div class="card-mirror">
+          <div>
+            <p class="eyebrow soft">柔软面</p>
+            <p class="mirror-text">想把每一次微笑，都珍藏成夜空里的一颗星。</p>
+          </div>
+          <div class="divider-line"></div>
+          <div>
+            <p class="eyebrow sharp">理性面</p>
+            <p class="mirror-text">从 DAY 1 开始，认真经营两人频道，把浪漫落到每个细节。</p>
+          </div>
+        </div>
+        <div class="constellation">
+          <span class="const-label">Star Orbit</span>
+          <div class="const-dots">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <p class="const-text">心动曲线：D1 → ∞</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card gemini" id="gemini">
+      <div class="badge">心动签名场</div>
+      <h2>浪漫有两面，光都给你</h2>
+      <div class="mirror-grid">
+        <div class="mirror-block">
+          <p class="pill-title">感性：夜空滤镜</p>
+          <p>与你讲月亮与星河，分享凌晨三点的心事；轻声说“别怕，我在”。</p>
+        </div>
+        <div class="mirror-block">
+          <p class="pill-title">理性：行动清单</p>
+          <p>提前规划惊喜、对齐时间表；把浪漫落地成日程，让心动有凭证。</p>
+        </div>
+        <div class="mirror-block full">
+          <p class="pill-title">隐藏彩蛋</p>
+          <p>选择权交给你：甜品店、音乐节、还是海边日落？每一项都写上“和你”。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card highlight" id="promise">
+      <div class="badge">DAY 1 · 心跳上线</div>
+      <h2>三段浪漫声明</h2>
+      <div class="pillars">
+        <div class="pillar">
+          <h3>你很好看</h3>
+          <p>不止是眼睛里落下的光，更是和你说话时，心里自动播放的弦乐序曲。</p>
+        </div>
+        <div class="pillar">
+          <h3>我很认真</h3>
+          <p>从 2026/01/18 开始的每个日期，都想挂上「双人模式」，日程里留给你最好的位置。</p>
+        </div>
+        <div class="pillar">
+          <h3>未来可期</h3>
+          <p>想在冬天陪你喝热可可，也想带你去音乐节，把所有“以后”变成“现在”。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card timeline" id="timeline">
+      <div class="badge">星轨时间轴</div>
+      <h2>把「昨天」写成「一直」</h2>
+      <div class="timeline-grid">
+        <div class="time-item">
+          <div class="dot"></div>
+          <p class="date">2026.01.18</p>
+          <h3>第一次遇见</h3>
+          <p>目光对上的那一秒，世界按下静音键，光只打在你身上。</p>
+        </div>
+        <div class="time-item">
+          <div class="dot"></div>
+          <p class="date" id="hundred-day-date">100 天后</p>
+          <h3>计划庆祝</h3>
+          <p>预约一场只属于我们的仪式，音乐、地点、惊喜都听你的。</p>
+        </div>
+        <div class="time-item">
+          <div class="dot"></div>
+          <p class="date" id="next-birthday">你的下个生日</p>
+          <h3>生日愿望清单</h3>
+          <p>把那天排满笑点与惊喜，许愿时我会把手伸向你。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card checklist" id="wishlist">
+      <div class="badge">把心愿写在这里</div>
+      <h2>想和你完成的浪漫清单</h2>
+      <ul class="wish-list">
+        <li><label><input type="checkbox"> 夜晚看一场流星雨，许同一个愿望</label></li>
+        <li><label><input type="checkbox"> 拍一组胶片写真，把彼此写进底片</label></li>
+        <li><label><input type="checkbox"> 去一家从未去过的甜品店，交换第一口</label></li>
+        <li><label><input type="checkbox"> 互写手写信，留到纪念日拆开</label></li>
+        <li><label><input type="checkbox"> 在城市天台听歌，数完对方喜欢的段落</label></li>
+      </ul>
+    </section>
+
+    <section class="card gallery" id="notes">
+      <div class="badge">纸条机</div>
+      <h2>随机甜话抽取</h2>
+      <div class="note-box" id="note-box">
+        <p id="note-text">点击上方「抽一张小纸条」，收下浪漫信号。</p>
+      </div>
+      <div class="chips">
+        <span class="chip">心跳频率</span>
+        <span class="chip">玫瑰金线</span>
+        <span class="chip">心动电波</span>
+        <span class="chip">夜空滤镜</span>
+        <span class="chip">甜度上限</span>
+      </div>
+    </section>
+
+    <section class="card game" id="game">
+      <div class="badge">心动小游戏</div>
+      <h2>翻牌配对 · 记忆里的你</h2>
+      <p class="subtitle">翻出两个相同图案就配对成功，用记忆力把 6 对全部找到。适合手机/平板，小心别被心动图标分散注意力。</p>
+      <div class="memory-wrap">
+        <div class="memory-grid" id="memory-grid"></div>
+        <div class="memory-overlay" id="memory-overlay">点击「开始」洗牌</div>
+      </div>
+      <div class="game-controls">
+        <button class="btn primary" id="start-memory">开始</button>
+        <div class="scoreboard">
+          步数 <span id="moves">0</span> · 剩余 <span id="time">60</span>s
+        </div>
+      </div>
+    </section>
+
+    <section class="card countdown" id="countdown">
+      <div class="badge">心动倒计时</div>
+      <h2>距离下一次惊喜还有</h2>
+      <div class="count-box">
+        <div class="count"><span id="days">00</span><small>天</small></div>
+        <div class="count"><span id="hours">00</span><small>小时</small></div>
+        <div class="count"><span id="minutes">00</span><small>分钟</small></div>
+      </div>
+      <p class="count-label" id="countdown-label">面向 100 天纪念日</p>
+    </section>
+
+    <section class="card letter" id="letter">
+      <div class="badge">写给杨文琪</div>
+      <h2>字句都想让你知道</h2>
+      <div class="typewriter" id="typewriter"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>骆邹阳 · 想和杨文琪一起，把 2026 走成一册浪漫纪念。</p>
+  </footer>
+
+  <div class="floating-hearts" id="hearts"></div>
+  <script src="script.js"></script>
+</body>
+</html>
