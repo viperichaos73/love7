@@ -1,4 +1,4 @@
-const startDate = new Date('2026-01-18T00:00:00');
+const startDate = new Date(); // Placeholder for future use
 const hundredDays = new Date(startDate.getTime() + 100 * 24 * 60 * 60 * 1000);
 
 const notes = [
@@ -30,24 +30,37 @@ const timeEl = document.getElementById('time');
 const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
 const minutesEl = document.getElementById('minutes');
+const bdayDaysEl = document.getElementById('bday-days');
+const bdayHoursEl = document.getElementById('bday-hours');
+const bdayMinutesEl = document.getElementById('bday-minutes');
 
 function updateDates() {
-  hundredDayDate.textContent = `${hundredDays.getFullYear()}.${String(hundredDays.getMonth() + 1).padStart(2, '0')}.${String(hundredDays.getDate()).padStart(2, '0')}`;
-  nextBirthday.textContent = '等你告诉我生日，我来策划惊喜';
-  countdownLabel.textContent = '面向 100 天心动打卡';
+  nextBirthday.textContent = '大年初九 · 2月25日';
+  countdownLabel.textContent = '距离生日还有';
 }
 
 function updateCountdown() {
+  // Since we're focusing on the birthday countdown, 
+  // this function is no longer needed for the 100-day countdown
+  // The birthday countdown is handled separately
+}
+
+function updateBirthdayCountdown() {
   const now = new Date();
-  const target = hundredDays;
+  // Set target to Feb 25, 2026 (the actual birthday)
+  let target = new Date(2026, 1, 25); // Month is 0-indexed (February = 1)
+  
+  // If birthday has already passed, we'll still count down to the 2026 date
+  // as that's the specific date mentioned
+  
   const diff = Math.max(0, target - now);
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
 
-  daysEl.textContent = String(days).padStart(2, '0');
-  hoursEl.textContent = String(hours).padStart(2, '0');
-  minutesEl.textContent = String(minutes).padStart(2, '0');
+  bdayDaysEl.textContent = String(days).padStart(2, '0');
+  bdayHoursEl.textContent = String(hours).padStart(2, '0');
+  bdayMinutesEl.textContent = String(minutes).padStart(2, '0');
 }
 
 function setupStarfield() {
@@ -148,8 +161,100 @@ function spawnHeart(x, y) {
   heart.style.left = `${x - 9}px`;
   heart.style.top = `${y - 9}px`;
   heartsLayer.appendChild(heart);
-  setTimeout(() => heart.remove(), 1200);
+  
+  // Add random rotation for more dynamic effect
+  const rotation = Math.random() * 360;
+  heart.style.transform = `rotate(${rotation}deg)`;
+  
+  // Set random destination for the floating animation
+  const endX = (Math.random() - 0.5) * 100; // Random horizontal movement (-50 to 50px)
+  const endY = -(100 + Math.random() * 100); // Move upward (between -100 and -200px)
+  
+  heart.style.setProperty('--end-x', `${endX}px`);
+  heart.style.setProperty('--end-y', `${endY}px`);
+  
+  setTimeout(() => heart.remove(), 4000); // Match the animation duration
 }
+
+// Enhanced heart rain effect
+function createHeartRain() {
+  // Check if on mobile device to reduce number of hearts for performance
+  const isMobile = window.innerWidth <= 768;
+  const heartCount = isMobile ? 5 : 15; // Fewer hearts on mobile
+  
+  for (let i = 0; i < heartCount; i++) {
+    setTimeout(() => {
+      // Random position along the width of the screen
+      const x = Math.random() * window.innerWidth;
+      const y = -20; // Start above the viewport
+      
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = `${x}px`;
+      heart.style.top = `${y}px`;
+      
+      // Add random size variation
+      const size = 0.8 + Math.random() * 0.7;
+      heart.style.width = `${18 * size}px`;
+      heart.style.height = `${18 * size}px`;
+      
+      // Add random rotation
+      const rotation = Math.random() * 360;
+      heart.style.transform = `rotate(${rotation}deg)`;
+      
+      // Set random destination for the floating animation
+      const endX = (Math.random() - 0.5) * 150; // Random horizontal movement (-75 to 75px)
+      const endY = -(150 + Math.random() * 150); // Move upward (between -150 and -300px)
+      
+      heart.style.setProperty('--end-x', `${endX}px`);
+      heart.style.setProperty('--end-y', `${endY}px`);
+      
+      heartsLayer.appendChild(heart);
+    }, i * 300); // Stagger the creation
+  }
+}
+
+
+
+// Create floating hearts periodically
+setInterval(() => {
+  // Adjust frequency based on device type for performance
+  const isMobile = window.innerWidth <= 768;
+  const spawnChance = isMobile ? 0.6 : 0.7; // Lower chance on mobile (40% on mobile, 30% on desktop)
+  
+  if (Math.random() > spawnChance) { // 30% chance to spawn hearts (40% on mobile)
+    createHeartRain();
+  }
+}, 8000); // Increased interval for more elegant spacing
+
+// Create interactive hearts that follow mouse movement slightly delayed
+let mouseX = 0;
+let mouseY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+// Function to create trailing hearts behind the mouse
+function createMouseTrailingHearts() {
+  // Check if on mobile device to reduce number of hearts for performance
+  const isMobile = window.innerWidth <= 768;
+  const heartCount = isMobile ? 1 : 2; // Fewer hearts on mobile for elegance
+  
+  // Create a few hearts near the mouse position with slight offset
+  for (let i = 0; i < heartCount; i++) {
+    setTimeout(() => {
+      const offsetX = (Math.random() - 0.5) * 60; // Wider spread
+      const offsetY = (Math.random() - 0.5) * 60;
+      
+      spawnHeart(mouseX + offsetX, mouseY + offsetY);
+    }, i * 150); // Slower stagger for elegance
+  }
+}
+
+// Create trailing hearts periodically
+setInterval(createMouseTrailingHearts, 1200); // Slower interval for elegance
 
 function scrollToLetter() {
   document.querySelector('#letter').scrollIntoView({ behavior: 'smooth' });
@@ -170,13 +275,14 @@ function attachEvents() {
 
   document.addEventListener('click', (e) => {
     if (!e.target.classList.contains('btn')) {
+      // Only spawn one heart per click for elegance
       spawnHeart(e.clientX, e.clientY);
     }
   });
 }
 
 function initLetter() {
-  const text = '杨文琪：\n遇见你是 2026 年最浪漫的剧情反转。想陪你穿越城市的霓虹，也想在你难过时，把肩膀留给你。未来不管晴天或雨天，我都想在你身边，把每个普通日子调成我们专属的高阶浪漫频道。—— 骆邹阳';
+  const text = '胡沁玲：\n遇见你是我最美好的期待。作为水瓶座的你，拥有独特的创新思维和自由精神，这让我深深着迷。特别期待在大年初九（2月25日）你的生日那天能和你见面，陪你一起度过这个特殊的日子。希望能成为你生日记忆中最温暖的一部分，与你共同迎接新的一岁。未来不管晴天或雨天，我都想在你身边，把每个普通日子调成我们专属的高阶浪漫频道。—— 骆邹阳';
   typeWriter(text, document.getElementById('typewriter'));
 }
 
@@ -304,8 +410,8 @@ function initGame() {
 
 function init() {
   updateDates();
-  updateCountdown();
-  setInterval(updateCountdown, 1000 * 30);
+  updateBirthdayCountdown(); // Focus on birthday countdown
+  setInterval(updateBirthdayCountdown, 1000 * 30); // Update birthday countdown every 30 seconds
   attachEvents();
   initLetter();
   randomNote();
